@@ -8,6 +8,9 @@ import * as serviceWorker from './serviceWorker';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import axios from 'axios';
 
+localStorage.setItem('username', 'Anisotropic');
+localStorage.setItem('password', 'TEST_PASSWORD');
+
 axios.interceptors.response.use(
   response => {
     return response;
@@ -15,6 +18,9 @@ axios.interceptors.response.use(
   function(error) {
     if (error.response.status === 400) {
       alert(error.response.data?.data);
+    }
+    if (error.response.status === 401 || error.response.status === 403) {
+      alert(error.response.data?.message);
     }
     return Promise.reject(error.response);
   }
